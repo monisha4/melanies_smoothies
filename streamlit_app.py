@@ -1,9 +1,13 @@
 # Import python packages
 import streamlit as st
-from snowflake.snowpark.functions import col
+from snowflake.snowpark.context import get_active_session
 
 # Write directly to the app
 st.title(":cup_with_straw: Customize Your Smoothie :cup_with_straw:")
+
+option=st.selectbox('What is your favourite fruit?',
+                    ('Banana','Strawberries','Peaches'))
+st.write('Your favourite fruit is:',option)
 
 cnx=st.connection("snowflake")
 session = cnx.session()
@@ -36,11 +40,6 @@ if ingredients_list:
             session.sql(my_insert_stmt).collect()
 
             st.success('Your Smoothie is ordered!', icon="✅")
-
-import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-st.text(fruityvice_response)
-
 
                      
                      
