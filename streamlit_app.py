@@ -5,10 +5,6 @@ from snowflake.snowpark.context import get_active_session
 # Write directly to the app
 st.title(":cup_with_straw: Customize Your Smoothie :cup_with_straw:")
 
-option=st.selectbox('What is your favourite fruit?',
-                    ('Banana','Strawberries','Peaches'))
-st.write('Your favourite fruit is:',option)
-
 cnx=st.connection("snowflake")
 session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
